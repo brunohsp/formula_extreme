@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://yk4f3ww6n1d3"]
+
+[ext_resource type="Script" path="res://pista_teste.gd" id="1_s7nqk"]
+[ext_resource type="Texture2D" uid="uid://btnipb8axunc3" path="res://assets/background.jpg" id="2_twu8f"]
+
+[node name="pista_teste" type="Node2D"]
+script = ExtResource("1_s7nqk")
+
+[node name="background" type="Sprite2D" parent="."]
+z_index = -1
+texture_repeat = 2
+position = Vector2(5, -139)
+scale = Vector2(1, 1.72947)
+texture = ExtResource("2_twu8f")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 1280, 414)
