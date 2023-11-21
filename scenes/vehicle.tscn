@@ -1,0 +1,118 @@
+[gd_scene load_steps=14 format=3 uid="uid://demxv6yus51ko"]
+
+[ext_resource type="Script" path="res://scripts/vehicle.gd" id="1_agdxq"]
+[ext_resource type="Texture2D" uid="uid://bpo6v7k4ts8fi" path="res://assets/car.png" id="2_lst4o"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_54ca5"]
+atlas = ExtResource("2_lst4o")
+region = Rect2(159, 0, 48, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j8ylq"]
+atlas = ExtResource("2_lst4o")
+region = Rect2(0, 25, 54, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_61r3s"]
+atlas = ExtResource("2_lst4o")
+region = Rect2(311, 25, 53, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n287f"]
+atlas = ExtResource("2_lst4o")
+region = Rect2(109, 0, 49, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_inn34"]
+atlas = ExtResource("2_lst4o")
+region = Rect2(208, 0, 49, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6nv62"]
+atlas = ExtResource("2_lst4o")
+region = Rect2(55, 25, 71, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w15lc"]
+atlas = ExtResource("2_lst4o")
+region = Rect2(0, 25, 54, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pp0vv"]
+atlas = ExtResource("2_lst4o")
+region = Rect2(159, 0, 48, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h4ra1"]
+atlas = ExtResource("2_lst4o")
+region = Rect2(311, 25, 53, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d03jt"]
+atlas = ExtResource("2_lst4o")
+region = Rect2(239, 25, 71, 25)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dipsu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_54ca5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j8ylq")
+}],
+"loop": true,
+"name": &"full_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_61r3s")
+}],
+"loop": true,
+"name": &"full_right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n287f")
+}],
+"loop": true,
+"name": &"left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_inn34")
+}],
+"loop": true,
+"name": &"right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6nv62")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w15lc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pp0vv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h4ra1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d03jt")
+}],
+"loop": true,
+"name": &"rotating",
+"speed": 12.0
+}]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_agdxq")
+
+[node name="vehicle" type="AnimatedSprite2D" parent="."]
+texture_filter = 3
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_dipsu")
+animation = &"rotating"
+frame_progress = 0.965089
+centered = false

@@ -11,11 +11,13 @@ var color := {
 	"strip_light"  : Color(1, 1, 1),
 }
 
+var new_vehicle = load("res://scenes/vehicle.tscn")
+var vehicle = new_vehicle.instantiate()
 var width := 1280
 var height := 720
-var road_width := 1920
-var seg := 200
-var cam := 0.85
+var road_width := 1020
+var seg := 300.0
+var cam := 0.8
 var tiles := []
 var pos := 0
 var num
@@ -29,13 +31,16 @@ var direction := 0
 
 func _ready():
 	for i in range(road_lenght):
-		tiles.append({ x_world = 0, y_world = 0, z_world = 0, x_viewport = 0, y_viewport = 0, w_viewport = 0, scale = 0, curve = 0})
-		tiles[i].z = i * seg
+		vehicle.position = Vector2(540.0, 520.0)
 		
-		if i > 500 and i <  850: tiles[i].curve = 1.0
+		add_child(vehicle)
+		tiles.append({ x_world = 0, y_world = 0, z_world = 0, x_viewport = 0, y_viewport = 0, w_viewport = 0, scale = 0, curve = 0})
+		tiles[i].z = i * seg + 1.0
+		
+		if i > 500 and i <  850: tiles[i].curve = 3.0
 		if i > 900 and i < 1200: tiles[i].curve = -5.0
 		if i > 1200 and i < 1800: tiles[i].curve = 4.0
-		if i > 2200 and i < 2600: tiles[i].curve = -1.0
+		if i > 2200 and i < 2600: tiles[i].curve = -3.0
 		if i >= 900 and i <= 1800: tiles[i].y_world = sin(i*0.0174533) * 2400.0
 	
 	num = tiles.size()
@@ -43,8 +48,10 @@ func _ready():
 func _process(delta):
 	queue_redraw()
 	
-	direction = Input.get_axis("ui_down", "ui_up")
-	pos += seg * direction
+	var button = Input.get_axis("ui_left", "ui_right")
+	vehicle.handle_with_movimentation(button, tiles[pos / seg].curve*2.0, tiles[pos / seg].y_world)
+	
+	pos += vehicle.velocity
 
 func _draw_road(color, x1, y1, w1, x2, y2, w2):
 	var a = Vector2(int(x1 - w1), int(y1))
@@ -70,17 +77,17 @@ func _draw() -> void:
 	if pos < 0:
 		pos += num * seg
 			
+	print(pos, ' / ', seg, ' = ', int(int(pos) / int(seg)))
 	var num_pos = 0
-	var start_point = pos / seg
+	var start_point = int(int(pos) / int(seg))
 	var cam_h = 1500 + tiles[start_point].y_world
 	var cutoff = height
 	var x = 0
 	var dx = 0
 	
-	skyline_pos += tiles[start_point].curve * 2.0 * direction
 	skyline_h = -tiles[start_point].y_world * 0.005
 	skyline.set_region_rect(Rect2(skyline_pos, skyline_h, 1920,320))
-	
+		
 	for n in range(start_point, start_point+300):
 		if n >= num:
 			num_pos = num * seg
