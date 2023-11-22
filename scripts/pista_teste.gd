@@ -15,7 +15,7 @@ var new_vehicle = load("res://scenes/vehicle.tscn")
 var vehicle = new_vehicle.instantiate()
 var width := 1280
 var height := 720
-var road_width := 1020
+var road_width :=860
 var seg := 300.0
 var cam := 0.8
 var tiles := []
@@ -35,7 +35,7 @@ func _ready():
 		
 		add_child(vehicle)
 		tiles.append({ x_world = 0, y_world = 0, z_world = 0, x_viewport = 0, y_viewport = 0, w_viewport = 0, scale = 0, curve = 0})
-		tiles[i].z = i * seg + 1.0
+		tiles[i].z_world = i * seg + 1
 		
 		if i > 500 and i <  850: tiles[i].curve = 3.0
 		if i > 900 and i < 1200: tiles[i].curve = -5.0
@@ -49,9 +49,9 @@ func _process(delta):
 	queue_redraw()
 	
 	var button = Input.get_axis("ui_left", "ui_right")
-	vehicle.handle_with_movimentation(button, tiles[pos / seg].curve*2.0, tiles[pos / seg].y_world)
+	vehicle.handle_with_movimentation(button, tiles[pos / seg].curve*2.0, tiles[pos / seg].y_world, road_width/2)
 	
-	pos += vehicle.velocity
+	pos += vehicle.velocity * vehicle.acceleration
 
 func _draw_road(color, x1, y1, w1, x2, y2, w2):
 	var a = Vector2(int(x1 - w1), int(y1))
@@ -64,7 +64,7 @@ func _draw_road(color, x1, y1, w1, x2, y2, w2):
 	draw_primitive(PackedVector2Array(new_point), PackedColorArray([color]), PackedVector2Array([]))
 
 func _tile_normalizer(tile, cam_x, cam_y, cam_z):
-	tile.scale = cam / (tile.z - cam_z)
+	tile.scale = cam / (tile.z_world - cam_z)
 	tile.x_viewport = (1 + tile.scale * (tile.x_world - cam_x)) * width / 2
 	tile.y_viewport = (1 - tile.scale * (tile.y_world - cam_y)) * height / 2
 	tile.w_viewport = tile.scale * road_width * (width / 2)
@@ -77,7 +77,6 @@ func _draw() -> void:
 	if pos < 0:
 		pos += num * seg
 			
-	print(pos, ' / ', seg, ' = ', int(int(pos) / int(seg)))
 	var num_pos = 0
 	var start_point = int(int(pos) / int(seg))
 	var cam_h = 1500 + tiles[start_point].y_world
@@ -104,9 +103,9 @@ func _draw() -> void:
 			
 		cutoff = new_tile.y_viewport
 		
-		var border = color.border_dark if fmod((n / 6), 2) else color.border_light
-		var road   = color.road_dark   if fmod((n / 7), 2) else color.road_light
-		var grass  = color.grass_dark  if fmod((n / 10), 2) else color.grass_light
+		var border = color.border_dark if fmod((n / 9), 2) else color.border_light
+		var road   = color.road_dark   if fmod((n / 9), 2) else color.road_light
+		var grass  = color.grass_dark  if fmod((n / 9), 2) else color.grass_light
 		var strip  = color.strip_dark  if fmod((n / 9), 2) else color.strip_light
 
 		_draw_road(grass, 0, previous_tile.y_viewport, width, 0, new_tile.y_viewport, width)
