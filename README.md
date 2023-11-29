@@ -21,7 +21,9 @@ nas pistas!
 - Geração de uma pista pré-definida e movimentar-se por ela.
 - Jogador
 - barreiras (rodovia X grama)
-- lógica de placar e tempo limite
+- lógica de placar e tempo
+- sons
+- telas de menu principal e de game over
 
 
 ## Roadmap
