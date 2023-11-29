@@ -1,7 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://demxv6yus51ko"]
+[gd_scene load_steps=16 format=3 uid="uid://demxv6yus51ko"]
 
 [ext_resource type="Script" path="res://scripts/vehicle.gd" id="1_agdxq"]
 [ext_resource type="Texture2D" uid="uid://bpo6v7k4ts8fi" path="res://assets/car.png" id="2_lst4o"]
+[ext_resource type="AudioStream" uid="uid://btsj2xsbcnl77" path="res://sounds/engine.mp3" id="3_6xg8f"]
+[ext_resource type="AudioStream" uid="uid://dshf51dy34bii" path="res://sounds/danger.mp3" id="4_afqpm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_54ca5"]
 atlas = ExtResource("2_lst4o")
@@ -116,3 +118,14 @@ sprite_frames = SubResource("SpriteFrames_dipsu")
 animation = &"rotating"
 frame_progress = 0.965089
 centered = false
+
+[node name="engine_fx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_6xg8f")
+volume_db = -15.758
+pitch_scale = 1.23
+autoplay = true
+
+[node name="danger" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_afqpm")
+volume_db = -30.0
+pitch_scale = 0.45

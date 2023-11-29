@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://scripts/speedometer.gd" id="1_yvabp"]
 
 [node name="speedometer" type="Control"]
+z_as_relative = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -12,6 +13,7 @@ grow_vertical = 2
 script = ExtResource("1_yvabp")
 
 [node name="acc3" type="ColorRect" parent="."]
+visible = false
 layout_mode = 2
 offset_left = 32.0
 offset_top = 550.0
@@ -24,6 +26,8 @@ size_flags_stretch_ratio = 0.0
 color = Color(1, 1, 0.254902, 1)
 
 [node name="acc2" type="ColorRect" parent="."]
+visible = false
+layout_mode = 0
 offset_left = 32.0
 offset_top = 600.0
 offset_right = 112.0
@@ -33,6 +37,8 @@ size_flags_stretch_ratio = 0.0
 color = Color(1, 0.458824, 0.0117647, 1)
 
 [node name="acc1" type="ColorRect" parent="."]
+visible = false
+layout_mode = 0
 offset_left = 32.0
 offset_top = 650.0
 offset_right = 112.0

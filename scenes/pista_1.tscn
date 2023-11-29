@@ -1,9 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://dfxj2vec6yokx"]
+[gd_scene load_steps=8 format=3 uid="uid://dfxj2vec6yokx"]
 
 [ext_resource type="Script" path="res://scripts/pista_teste.gd" id="1_g1oyv"]
 [ext_resource type="Texture2D" uid="uid://btnipb8axunc3" path="res://assets/background.jpg" id="2_h0ni5"]
 [ext_resource type="PackedScene" uid="uid://6synaed3cl4s" path="res://scenes/stopwatch.tscn" id="3_ny378"]
 [ext_resource type="PackedScene" uid="uid://dhe6cuaf8giwg" path="res://scenes/speedometer.tscn" id="4_ly1h8"]
+[ext_resource type="AudioStream" uid="uid://npnr2as2sk8h" path="res://sounds/background_music.mp3" id="5_m87tq"]
+[ext_resource type="AudioStream" uid="uid://dvebjhc284sp" path="res://sounds/lap_complete.wav" id="6_wcovd"]
+[ext_resource type="AudioStream" uid="uid://ctnc34klnt0ve" path="res://sounds/victory_fanfare.wav" id="7_0cfmo"]
 
 [node name="pista_1" type="Node2D"]
 script = ExtResource("1_g1oyv")
@@ -27,7 +30,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 
 [node name="speedometer" parent="." instance=ExtResource("4_ly1h8")]
-z_index = 3
+z_index = 1
 
 [node name="current_lap" type="Label" parent="."]
 offset_left = 1067.0
@@ -37,3 +40,16 @@ offset_bottom = 80.0
 theme_override_font_sizes/font_size = 32
 text = "0"
 horizontal_alignment = 2
+
+[node name="background_music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_m87tq")
+volume_db = -18.0
+pitch_scale = 0.75
+autoplay = true
+
+[node name="lap_complete" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_wcovd")
+pitch_scale = 0.5
+
+[node name="victory_fanfare" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_0cfmo")

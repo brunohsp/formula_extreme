@@ -1,16 +1,17 @@
 extends Control
 
-
-var running = true
-var start_time = Time.get_unix_time_from_system() 
+var started = false
+var running = false
+var start_time
 
 @onready var label = $timer
 
 func _ready():
-	pass 
-
+	started = false
+	running = false
 
 func _process(delta):
+	if(!started): await get_tree().create_timer(2.0).timeout; started = true; running = true;start_time = Time.get_unix_time_from_system();
 	if running:	get_time(delta)
 
 func get_time(delta):

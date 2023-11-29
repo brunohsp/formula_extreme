@@ -14,6 +14,7 @@ var color := {
 var new_vehicle = load("res://scenes/vehicle.tscn")
 var vehicle = new_vehicle.instantiate()
 
+var started = false
 var width := 1280
 var height := 720
 var road_width :=860
@@ -34,6 +35,7 @@ var direction := 0
 @onready var skyline: Sprite2D = $background
 
 func _ready():
+	started = false
 	for i in range(road_lenght):
 		vehicle.position = Vector2(540.0, 520.0)
 		
@@ -41,7 +43,7 @@ func _ready():
 		tiles.append({ x_world = 0, y_world = 0, z_world = 0, x_viewport = 0, y_viewport = 0, w_viewport = 0, scale = 0, curve = 0})
 		tiles[i].z_world = i * seg + 1
 		
-		if i > 1000 and i <  2000: tiles[i].curve = 3.0
+		if i > 1000 and i <  2000: tiles[i].curve = 4.0
 		if i > 2500 and i <  3500: tiles[i].curve = -1.0
 		if i > 3800 and i <  4600: tiles[i].curve = 2.0
 		if i > 5200 and i <  6600: tiles[i].curve = -3.0
@@ -55,13 +57,19 @@ func _ready():
 	num = tiles.size()
 	
 func _process(delta):
-	if (pos/seg == 0): lap += 1;print("fsadjfnasdiufaisf")
-	if(lap == max_turns+1): vehicle.stop();
-	if vehicle.velocity == 0: $Stopwatch.stop(); return;
+	if(!started): await get_tree().create_timer(2.0).timeout; started = true; 
+	
+	if (pos/seg == 0): lap += 1;$lap_complete.play();
+	if(lap == max_turns+1): vehicle.stop(); $victory_fanfare.play();
+	if vehicle.velocity == 0: 
+		$Stopwatch.stop()
+		$background_music.playing = false
+		if(lap != max_turns+1): pass;
+		await get_tree().create_timer(2.0).timeout
+		get_tree().change_scene_to_file("res://scenes/game_over.tscn")
 	queue_redraw()
 	
 	$current_lap.text = "%2d/%2d" % [lap, max_turns]
-	
 	
 	var button = Input.get_axis("ui_left", "ui_right")
 	
@@ -70,8 +78,10 @@ func _process(delta):
 	$speedometer.update(vehicle.acceleration)
 	
 	if(tiles[pos / seg].curve != 0 and x_cam_shift < 300 and x_cam_shift > -300): 
-		x_cam_shift += 1
-		vehicle.position.x +=  1
+		var inverse = -1 * tiles[pos / seg].curve
+		if(inverse < 0): inverse *= -1
+		x_cam_shift += 1 * tiles[pos / seg].curve/ inverse
+		vehicle.position.x +=  1 * tiles[pos / seg].curve/ inverse
 	elif(tiles[pos / seg].curve == 0 and x_cam_shift != 0.0): 
 		vehicle.position.x += x_cam_shift*-0.1
 		x_cam_shift += x_cam_shift*-0.1

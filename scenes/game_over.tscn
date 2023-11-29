@@ -1,0 +1,53 @@
+[gd_scene load_steps=3 format=3 uid="uid://cutr0qh8vpk7y"]
+
+[ext_resource type="Script" path="res://scripts/game_over.gd" id="1_7obk6"]
+[ext_resource type="Texture2D" uid="uid://bwdpjfnj13x1d" path="res://assets/game_over.png" id="2_qfgsd"]
+
+[node name="game_over" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7obk6")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -130.0
+offset_top = -67.0
+offset_right = 130.0
+offset_bottom = 67.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 24
+
+[node name="game_over_title" type="TextureRect" parent="VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_qfgsd")
+
+[node name="restart_btn" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Restart
+"
+
+[node name="quit_btn" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Exit"
+
+[connection signal="pressed" from="VBoxContainer/restart_btn" to="." method="_on_restart_btn_pressed"]
+[connection signal="pressed" from="VBoxContainer/quit_btn" to="." method="_on_quit_btn_pressed"]
