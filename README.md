@@ -19,17 +19,17 @@ nas pistas!
 ## Funcionalidades Implementadas
 
 - Geração de uma pista pré-definida e movimentar-se por ela.
+- Jogador
+- barreiras (rodovia X grama)
+- lógica de placar e tempo limite
 
 
 ## Roadmap
 
-- Implementar Jogador
-- Implementar barreiras
-- Implementar adversários
 - Implementar itens coletáveis
+- Implementar adversários 
 - Implementar lógica de combustível do Jogador
-- Implementar lógica de placar e tempo limite
-- Implementar lógica de dificuldade
+
 
 
 ## Aprendizados
