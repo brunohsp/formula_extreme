@@ -1,0 +1,42 @@
+[gd_scene load_steps=2 format=3 uid="uid://dhe6cuaf8giwg"]
+
+[ext_resource type="Script" path="res://scripts/speedometer.gd" id="1_yvabp"]
+
+[node name="speedometer" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yvabp")
+
+[node name="acc3" type="ColorRect" parent="."]
+layout_mode = 2
+offset_left = 32.0
+offset_top = 550.0
+offset_right = 112.0
+offset_bottom = 590.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 0
+size_flags_stretch_ratio = 0.0
+color = Color(1, 1, 0.254902, 1)
+
+[node name="acc2" type="ColorRect" parent="."]
+offset_left = 32.0
+offset_top = 600.0
+offset_right = 112.0
+offset_bottom = 640.0
+size_flags_vertical = 0
+size_flags_stretch_ratio = 0.0
+color = Color(1, 0.458824, 0.0117647, 1)
+
+[node name="acc1" type="ColorRect" parent="."]
+offset_left = 32.0
+offset_top = 650.0
+offset_right = 112.0
+offset_bottom = 690.0
+size_flags_vertical = 0
+size_flags_stretch_ratio = 0.0
+color = Color(1, 0, 0.141176, 1)
